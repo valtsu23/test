@@ -1,3 +1,5 @@
+## Version 2.2
+# Added finger event for touscreen usage, when touch isn't recognized as mouse button
 ## Version 2.1
 # Fuel level filtering improved
 ## Version 2 changes
@@ -158,9 +160,6 @@ def menu():
     fuel_level_button = create_rect(coordinates_x[2], coordinates_y[5], "Fuel level")
     empty_button = create_rect(coordinates_x[3], coordinates_y[5], "")
 
-    # Display refresh
-    pygame.display.flip()
-
     while True:
         for event in pygame.event.get():
             # Unit selection
@@ -170,7 +169,11 @@ def menu():
             elif event.type == pygame.FINGERUP:
                 touch = True
                 pos = touch_xy(event.x, event.y)
-
+        
+        # Display refresh
+        pygame.display.flip()
+        time.sleep(.1)
+        
         if touch:
             if pygame.Rect.collidepoint(rpm_button, pos):
                 return "RPM"
